@@ -7,29 +7,29 @@
     <title>Dyeing Program Register</title>
     <style>
         :root {
-            /* Dark Theme Variables (Slate Palette) */
+            /* Dark Theme Variables (Zinc/Neutral Palette) */
             --primary-color: #3b82f6;
-            /* Blue 500 */
-            --background-color: #0f172a;
-            /* Slate 900 */
-            --surface-color: #1e293b;
-            /* Slate 800 */
-            --surface-header: #334155;
-            /* Slate 700 */
-            --text-primary: #f8fafc;
-            /* Slate 50 */
-            --text-secondary: #94a3b8;
-            /* Slate 400 */
-            --border-color: #334155;
-            /* Slate 700 */
+            /* Blue 500 (Kept for primary actions) */
+            --background-color: #09090b;
+            /* Zinc 950 (Deep Neutral Black) */
+            --surface-color: #18181b;
+            /* Zinc 900 (Dark Neutral Grey) */
+            --surface-header: #27272a;
+            /* Zinc 800 (Lighter Neutral Grey) */
+            --text-primary: #e4e4e7;
+            /* Zinc 200 (Off-white) */
+            --text-secondary: #a1a1aa;
+            /* Zinc 400 (Light Grey) */
+            --border-color: #27272a;
+            /* Zinc 800 */
             --success-color: #22c55e;
             /* Green 500 */
             --warning-color: #eab308;
             /* Yellow 500 */
             --danger-color: #ef4444;
             /* Red 500 */
-            --input-bg: #0f172a;
-            /* Slate 900 */
+            --input-bg: #09090b;
+            /* Zinc 950 */
         }
 
         /* Global Reset */
@@ -784,6 +784,8 @@
                 const card = document.createElement('div');
                 card.className = `program-card ${record.collapsed ? 'collapsed' : ''}`;
 
+                const pendingCount = total - doneCount;
+
                 card.innerHTML = `
                     <div class="program-header" onclick="toggleCollapse(${record.id})">
                         <div class="header-title">
@@ -791,7 +793,10 @@
                                 <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                                 ${record.ref}
                             </span>
-                            <span class="program-date">${new Date(record.date).toLocaleDateString()}</span>
+                            <span class="program-date">
+                                ${new Date(record.date).toLocaleDateString()} 
+                                <span style="opacity: 0.7; margin-left: 8px;">• ${doneCount} Done / ${pendingCount} Pending</span>
+                            </span>
                         </div>
                         <div class="header-actions">
                             <span class="status-badge status-${record.status}">${record.status === 'WIP' ? 'WIP' : record.status}</span>
