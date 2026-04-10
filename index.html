@@ -658,10 +658,35 @@
                 .filter(s => s !== '');
 
             // Create objects: { num: "4", done: false }
-            const shadeObjects = shadeValues.map(val => ({
-                num: val,
-                done: false
-            }));
+            // const shadeObjects = shadeValues.map(val => ({
+            //     num: val,
+            //     done: false
+            // }));
+
+            const ranges = [
+                [8,15], [26,30], [48,55], [61,67], [118,120], [181,195],
+                [158,163], [220,224], [38,45], [98,101], [80,83],
+                [126,129], [293,298], [307,312], [112,114], [248,248]
+            ];
+            
+            function isInRange(num) {
+                return ranges.some(([start, end]) => num >= start && num <= end);
+            }
+            
+            const shadeObjects = shadeValues.map(val => {
+                const num = parseFloat(val);
+            
+                let displayVal = val;
+            
+                if (!isNaN(num) && isInRange(num)) {
+                    displayVal = val + 'w';
+                }
+            
+                return {
+                    num: displayVal,
+                    done: false
+                };
+            });
 
             // Sort ascending (natural sort for numbers)
             shadeObjects.sort((a, b) => {
